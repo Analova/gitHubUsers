@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Search = ({ searchUsers, setAlert, showClear, clearUsers }) => {
+const Search = ({ SearchUsers, setAlert, showClear, clearUsers }) => {
   const [text, setText] = useState("");
 
   const onChange = e => {
@@ -12,8 +12,8 @@ const Search = ({ searchUsers, setAlert, showClear, clearUsers }) => {
     if (text === "") {
       setAlert("Please enter a name", "light");
     } else {
-      searchUsers(text);
-      setText({ text: "" });
+      SearchUsers(text);
+      setText(" ");
     }
   };
 

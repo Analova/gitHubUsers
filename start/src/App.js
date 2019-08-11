@@ -1,4 +1,4 @@
-import React, { uuseState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/layout/NavBar";
 import Users from "./components/users/Users";
@@ -11,9 +11,9 @@ import "./App.css";
 
 const App = () => {
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
 
   //Search GithubUsers
@@ -23,7 +23,7 @@ const App = () => {
       `https://api.github.com/search/users?q=${text}`
     );
     console.log(res.data);
-    setUsers(res.data.item);
+    setUsers(res.data.items);
     setLoading(false);
   };
 
@@ -45,7 +45,7 @@ const App = () => {
     setLoading(false);
   };
 
-  // clear Users
+  // clear users
   const clearUsers = () => {
     setUsers([]);
     setLoading(false);
@@ -54,7 +54,6 @@ const App = () => {
   // Set Aletr
   const showAlert = (msg, type) => {
     setAlert({ msg, type });
-
     setTimeout(() => setAlert(null), 2000);
   };
 
@@ -74,7 +73,7 @@ const App = () => {
                     SearchUsers={SearchUsers}
                     clearUsers={clearUsers}
                     showClear={users.length > 0 ? true : false}
-                    showAlert={showAlert}
+                    setAlert={showAlert}
                   />
                   <Users loading={loading} users={users} />
                 </>
