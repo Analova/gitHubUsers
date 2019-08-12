@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import GithubContext from "../../context/gitHub/githubContext";
+import AlertContext from "../../context/alert/alertContext";
 
-const Search = ({ setAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
   const [text, setText] = useState("");
 
   const onChange = e => {
@@ -12,7 +14,7 @@ const Search = ({ setAlert }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (text === "") {
-      setAlert("Please enter a name", "light");
+      alertContext.setAlert("Please enter a name", "light");
     } else {
       githubContext.SearchUsers(text);
       setText(" ");
@@ -36,7 +38,10 @@ const Search = ({ setAlert }) => {
         />
       </form>
       {githubContext.users.length > 0 && (
-        <button className="btn btn-light btn-block" onClick={ githubContext.clearUsers}>
+        <button
+          className="btn btn-light btn-block"
+          onClick={githubContext.clearUsers}
+        >
           Clear
         </button>
       )}
